@@ -4,6 +4,10 @@
 
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth; /* 👈 ¡La magia para que baje suave! */
+}
+
 body {
   font-family: "Poppins", sans-serif;
   background-color: rgb(88, 0, 170);
