@@ -159,10 +159,12 @@ export default function AuthForm() {
               >
                 <InputField
                   index={1}
-                  label="Correo"
-                  icon="person"
+                  label={isLogin ? "Email" : "Usuario"}
+                  icon={isLogin ? "envelope" : "person"}
                   name="user"
-                  placeholder="Tu Correo"
+                  placeholder={
+                    isLogin ? "tu@correo.com" : "Tu nombre de guerrero"
+                  }
                 />
                 {!isLogin && (
                   <InputField
