@@ -65,17 +65,17 @@ export default function AuthForm() {
           options: { data: { display_name: username } },
         });
         if (error) throw error;
-        await supabase.auth.signOut();
 
         setNotificacion({
-          texto: "¡Registro exitoso! Ya puedes entrar.",
+          texto:
+            "¡GUERRERO! Se ha enviado un pergamino (email) de confirmación. Revisa tu bandeja de entrada.",
           tipo: "success",
         });
         // Cambiamos a login automáticamente después de 2 segundos
         setTimeout(() => {
           setIsLogin(true);
           setNotificacion({ texto: "", tipo: "" });
-        }, 2500);
+        }, 3000);
       }
     } catch (error) {
       // 2. Manejo de errores visual
