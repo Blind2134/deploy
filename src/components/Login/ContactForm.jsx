@@ -32,32 +32,47 @@ const InputField = ({
 );
 
 export default function AuthForm() {
-  // Estado para alternar entre Login y Registro
   const [isLogin, setIsLogin] = useState(false);
 
   return (
     <main className="relative min-h-screen w-full flex flex-col md:flex-row items-center justify-center p-6 overflow-hidden">
-      {/* Sección Izquierda: Logo (fijo) */}
-      <motion.div className="flex flex-col items-center justify-center p-10">
+      {/* SECCIÓN IZQUIERDA: Entrada desde la izquierda (-100) */}
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="flex flex-col items-center justify-center p-10"
+      >
         <motion.img
           src={logo}
           animate={{ y: [0, -15, 0] }}
-          transition={{ repeat: Infinity, duration: 3 }}
+          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           className="w-[300px] md:w-[400px] drop-shadow-2xl"
         />
-        <h2 className="text-5xl font-black text-yellow-400 mt-4 italic drop-shadow-lg uppercase">
+        <h2 className="text-5xl font-black text-yellow-400 mt-4 italic drop-shadow-lg uppercase text-center">
           {isLogin ? "¡Bienvenido de vuelta!" : "¡Hola Guerrero!"}
         </h2>
-        <p className="text-xl font-bold drop-shadow-md bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent uppercase tracking-widest mt-2">
+        <p className="text-xl font-bold drop-shadow-md bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent uppercase tracking-widest mt-2 text-center">
           {isLogin
             ? "Ingresa tus credenciales para continuar tu aventura."
             : "Crea una cuenta para comenzar tu viaje."}
         </p>
       </motion.div>
 
-      {/* Sección Derecha: El Formulario */}
-      <motion.div layout className="z-10 w-full max-w-md">
-        <form className="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border-t-4 border-orange-500">
+      {/* SECCIÓN DERECHA: Entrada desde la derecha (100) */}
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="z-10 w-full max-w-md"
+      >
+        {/* Usamos layout para que el form se estire suavemente al cambiar de modo */}
+        <motion.div
+          layout
+          className="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border-t-4 border-orange-500 relative"
+        >
+          <div className="absolute -z-10 inset-0 bg-orange-400/10 blur-2xl rounded-2xl"></div>
+
           <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center uppercase italic">
             {isLogin ? "Iniciar Sesión" : "Crear Cuenta"}
           </h2>
@@ -70,7 +85,6 @@ export default function AuthForm() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
             >
-              {/* Campo de Usuario: Se usa en ambos */}
               <InputField
                 index={1}
                 label="Usuario"
@@ -79,7 +93,6 @@ export default function AuthForm() {
                 placeholder="Tu nombre"
               />
 
-              {/* Campo de Email: SOLO se muestra si NO es login (Registro) */}
               {!isLogin && (
                 <InputField
                   index={2}
@@ -91,7 +104,6 @@ export default function AuthForm() {
                 />
               )}
 
-              {/* Campo de Contraseña: Se usa en ambos */}
               <InputField
                 index={3}
                 label="Contraseña"
@@ -104,25 +116,27 @@ export default function AuthForm() {
           </AnimatePresence>
 
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full bg-orange-600 text-white font-black py-3 rounded-lg mt-4 uppercase tracking-widest shadow-lg"
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0px 0px 15px rgba(249, 115, 22, 0.5)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full bg-orange-600 text-white font-black py-3 rounded-lg mt-4 uppercase tracking-widest shadow-lg transition-colors"
           >
             {isLogin ? "Entrar al Juego" : "¡Registrarse!"}
           </motion.button>
 
-          {/* EL BOTÓN MÁGICO: Cambia el estado */}
           <p className="text-center mt-6 text-gray-600 text-sm font-medium">
             {isLogin ? "¿No tienes cuenta? " : "¿Ya tienes cuenta? "}
             <button
-              type="button" // Importante: para que no envíe el form
+              type="button"
               onClick={() => setIsLogin(!isLogin)}
-              className="text-orange-600 font-bold hover:underline cursor-pointer"
+              className="text-orange-600 font-bold hover:underline cursor-pointer transition-all"
             >
               {isLogin ? "Regístrate aquí" : "Inicia Sesión"}
             </button>
           </p>
-        </form>
+        </motion.div>
       </motion.div>
     </main>
   );
