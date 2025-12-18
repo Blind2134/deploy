@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Logo from "../../assets/Logo.png";
 import MenuButton from "../sistemas/MenuButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../../data/supabaseClient"; // Importamos supabase para el Logout
 const navbarLinks = [
   {
     id: 1,
@@ -48,11 +49,25 @@ const navbarRedes = [
   },
 ];
 
-const Navbar = () => {
+const Navbar = ({ session }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  // --- SOLUCIÓN: Definir handleLogout aquí, fuera de toggleMenu ---
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+
+      setIsOpen(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Error al salir:", error.message);
+    }
   };
   return (
     <div className="fixed top-0 left-0 bg-purple-900/30 w-full  backdrop-blur-md z-50">
@@ -76,6 +91,18 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+
+            {/* BOTÓN DESKTOP: Solo aparece si session existe */}
+            {session && (
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="ml-4 bg-red-600/80 hover:bg-red-600 text-white px-5 py-1 rounded-full text-sm font-black transition-all border border-red-400 uppercase italic shadow-[0_0_15px_rgba(220,38,38,0.5)]"
+                >
+                  Cerrar Sesión <i className="bi bi-box-arrow-right ml-1"></i>
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
         {/* Nav Redes Sociales */}
@@ -124,6 +151,18 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
+
+          {/* BOTÓN MOBILE: Solo aparece si session existe */}
+          {session && (
+            <li className="text-center pt-4 border-t border-purple-700">
+              <button
+                onClick={handleLogout}
+                className="text-red-400 font-black uppercase text-xl flex items-center justify-center w-full gap-2"
+              >
+                <i className="bi bi-box-arrow-right"></i> Salir del Juego
+              </button>
+            </li>
+          )}
         </ul>
         <ul className="flex space-x-4 px-4 py-2 border-t border-purple-700 justify-center">
           {navbarRedes.map((link) => (

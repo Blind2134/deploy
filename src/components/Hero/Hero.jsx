@@ -3,10 +3,10 @@ import LogoGif from "../../assets/gifDB.gif";
 import Logo from "../../assets/Logo.png";
 import { motion } from "framer-motion";
 import { slideUp, slipeInFromSide } from "../../utility/animation";
-// 1. ESTA IMPORTACIÓN ES OBLIGATORIA
 import { Link } from "react-router-dom";
 
-const Hero = () => {
+// 1. Recibimos 'session' como prop desde App.jsx
+const Hero = ({ session }) => {
   return (
     <section className="mt-36">
       <article className="grid grid-cols-1 md:grid-cols-2">
@@ -33,19 +33,32 @@ const Hero = () => {
             initial="initial"
             animate="animate"
           >
-            {/* 2. CAMBIO DE <a> A <Link> */}
-            <Link
-              to="/contacto" // 'to' en lugar de 'href'
-              className="bg-red-500 py-2 px-12 rounded-3xl text-white hover:bg-red-700 transition-all duration-300 flex items-center cursor-pointer"
-            >
-              PLAY
-              <i className="bi bi-controller text-xl ml-2"></i>
-            </Link>
+            {/* 2. Lógica Condicional: Si hay sesión, muestra Steam. Si no, Registro */}
+            {session ? (
+              <a
+                href="https://store.steampowered.com/app/1790600/DRAGON_BALL_Sparking_ZERO/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-600 py-2 px-12 rounded-3xl text-white hover:bg-blue-800 transition-all duration-300 flex items-center cursor-pointer shadow-[0_0_20px_rgba(37,99,235,0.5)]"
+              >
+                JUGAR EN STEAM
+                <i className="bi bi-steam text-xl ml-2"></i>
+              </a>
+            ) : (
+              <Link
+                to="/contacto"
+                className="bg-red-500 py-2 px-12 rounded-3xl text-white hover:bg-red-700 transition-all duration-300 flex items-center cursor-pointer"
+              >
+                PLAY
+                <i className="bi bi-controller text-xl ml-2"></i>
+              </Link>
+            )}
 
             <a
               target="_blank"
-              href="https://www.youtube.com/watch?v=_l5rBPYjdw8 "
-              className="text-white flex items-center cursor-pointer"
+              rel="noopener noreferrer"
+              href="https://www.youtube.com/watch?v=_l5rBPYjdw8"
+              className="text-white flex items-center cursor-pointer hover:text-red-500 transition-colors"
             >
               VER VIDEO <i className="bi bi-youtube text-xl ml-2"></i>
             </a>
