@@ -55,8 +55,7 @@ const CardList = () => {
               </motion.h2>
 
               <p className="text-purple-100 text-lg mb-6 leading-relaxed">
-                {selectedPersonaje.descripcion} Este guerrero legendario posee
-                habilidades únicas capaces de destruir planetas enteros.
+                {selectedPersonaje.descripcion}
               </p>
 
               <button

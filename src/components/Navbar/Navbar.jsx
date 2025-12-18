@@ -16,12 +16,12 @@ const navbarLinks = [
   {
     id: 3,
     title: "Contacto",
-    Link: "#",
+    Link: "/contacto",
   },
   {
     id: 4,
     title: "Soporte",
-    Link: "#",
+    Link: "/soporte",
   },
 ];
 
@@ -107,7 +107,7 @@ const Navbar = () => {
       {/* Menu mobile */}
 
       <div
-        className={`md:hidden absolute w-full bg-purple-950 transition-all duration-300 ${
+        className={`md:hidden absolute w-full bg-purple-950/76 transition-all duration-300  ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
