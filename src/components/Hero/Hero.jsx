@@ -24,7 +24,7 @@ const Hero = ({ session }) => {
             initial="initial"
             animate="animate"
           >
-            JUEGA YA A DBZ DESDE DONDE TU QUIERAS, ES GRATIS
+            JUEGA YA A DBZ DESDE DONDE TU QUIERAS, CON 50% DE DESCUENTO
           </motion.p>
 
           <motion.div
